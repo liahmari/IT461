@@ -1,5 +1,6 @@
 from db import Db
 
+
 class Cat():
     def sanitize(self, cats):
         if not isinstance(cats, (list, tuple)):
@@ -14,7 +15,7 @@ class Cat():
         return clean_cats
 
     def post(self, cats):
-        if not isinstance(cats,(list,tuple)):
+        if not isinstance(cats, (list, tuple)):
             cats = [cats]
         clean_cats = self.sanitize(cats)
         if len(cats) != len(clean_cats):
@@ -26,21 +27,21 @@ class Cat():
         db = Db.get_instance()
         res = db.transactional(queries)
         return cats
-    
-    def get(self, filters = None):
+
+    def get(self, filters=None):
         db = Db.get_instance()
         if filters is not None:
             if 'id' in filters:
                 sql = "SELECT * FROM cats WHERE id = %s"
-                cat = db.fetchone(sql,filters['id'])
+                cat = db.fetchone(sql, filters['id'])
                 return cat
             # if another filter
         sql = "SELECT * FROM cats ORDER BY name"
         cats = db.fetchall(sql)
         return cats
-    
-    def put(self,cats):
-        if not isinstance(cats,(list,tuple)):
+
+    def put(self, cats):
+        if not isinstance(cats, (list, tuple)):
             cats = [cats]
         clean_cats = self.sanitize(cats)
         if len(cats) != len(clean_cats):
@@ -52,10 +53,10 @@ class Cat():
         db = Db.get_instance()
         db.transactional(queries)
         return cats
-    
+
     def delete(self, cats):
         counter = 0
-        if not isinstance(cats,(list,tuple)):
+        if not isinstance(cats, (list, tuple)):
             cats = [cats]
         placeholder = []
         queries = []
