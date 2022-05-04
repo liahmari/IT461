@@ -1,5 +1,6 @@
 from db import Db
 
+
 class DogModel():
     def sanitize(self, dogs):
         if not isinstance(dogs, (list, tuple)):
