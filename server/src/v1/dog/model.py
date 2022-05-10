@@ -42,7 +42,7 @@ class DogModel():
                 if len(tmp_fields) > 0:
                     fields = tmp_fields
             if 'id' in filters:
-                sql = "SELECT " + ','.join(fields) + " FROM dogs WHERE id = %s"
+                sql = "SELECT " + ','.join(fields) + "FROM dogs WHERE id = %s"
                 dog = db.fetchone(sql, filters['id'])
                 return dog
             if 'offset' in filters:

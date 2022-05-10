@@ -2,6 +2,7 @@ from flask import request, make_response, jsonify
 from v1.basecontroller import BaseController
 from v1.dog.model import DogModel
 
+
 class DogController(BaseController):
     _instance = None
 
@@ -36,8 +37,10 @@ class DogController(BaseController):
             if not isinstance(dog, dict):
                 return dog
             return jsonify(dog)
-        filters['offset'] = int(request.args['offset']) if 'offset' in request.args else 0
-        filters['limit'] = int(request.args['limit']) if 'limit' in request.args else 5
+        filters['offset'] = int(request.args['offset']
+                                ) if 'offset' in request.args else 0
+        filters['limit'] = int(request.args['limit']
+                               ) if 'limit' in request.args else 5
         dogs = self._instance.read(filters)
         total = self._instance.read(filters, True)
         return jsonify({
