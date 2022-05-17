@@ -1,6 +1,7 @@
 from flask import jsonify, request, current_app
 import jwt
 import datetime
+from db import Db
 
 def jwt_token_required():
     token = request.args.get('token')
@@ -18,6 +19,7 @@ def verify_token(token):
 
 def login(username, password):
     # TODO: use the database to verify the username and password
+    # db = Db.get_instance()
     if username == 'admin' and password == 'admin':
         payload = {
             'username': username,
