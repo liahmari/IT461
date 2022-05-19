@@ -2,13 +2,13 @@
 
 
 ### Get all cats via id
-GET {{host}}/?fields=id&offset=0&limit=2 HTTP/1.1
+GET {{host}}/?fields=id&offset=0&limit=2&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOjEwMCwiZXhwIjoxNjUyODUyMDE0fQ.e7fPAyd3kO-0s_QRoUVpR9KcbbjW24e8-7DKBeGv6WI HTTP/1.1
 
 ### Get single cat name
 GET {{host}}/6?fields=name HTTP/1.1
 
 ### Get all cats with id and name
-GET {{host}}/ HTTP/1.1
+GET {{host}}/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOjEwMCwiZXhwIjoxNjUyODUyMDE0fQ.e7fPAyd3kO-0s_QRoUVpR9KcbbjW24e8-7DKBeGv6WI HTTP/1.1
 
 ###
 POST {{host}}/ HTTP/1.1

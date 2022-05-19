@@ -1,0 +1,37 @@
+@host = http://127.0.0.1:6000/v1/users
+
+### Get all users via id
+GET {{host}}/?fields=id&offset=0&limit=2&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOjEwMCwiZXhwIjoxNjUzMDE5NTYwfQ.qIOx_irFQ5LXmbBZr6Rh_VEC-XnbxwMPlJxpOHqan5E HTTP/1.1
+
+### Get all users with id and name
+GET {{host}}/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOjEwMCwiZXhwIjoxNjUzMDE5NTYwfQ.qIOx_irFQ5LXmbBZr6Rh_VEC-XnbxwMPlJxpOHqan5E HTTP/1.1
+
+### Get all users via username
+GET {{host}}/?fields=username&offset=0&limit=2&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOjEwMCwiZXhwIjoxNjUzMDE5NTYwfQ.qIOx_irFQ5LXmbBZr6Rh_VEC-XnbxwMPlJxpOHqan5E HTTP/1.1
+
+### Get single user
+GET {{host}}/3?offset=0&limit=2&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOjEwMCwiZXhwIjoxNjUzMDE5NTYwfQ.qIOx_irFQ5LXmbBZr6Rh_VEC-XnbxwMPlJxpOHqan5E HTTP/1.1
+
+### Create user
+POST {{host}}/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOjEwMCwiZXhwIjoxNjUzMDE5NTYwfQ.qIOx_irFQ5LXmbBZr6Rh_VEC-XnbxwMPlJxpOHqan5E HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 0,
+    "username": "admin1",
+    "password": "admin"
+}
+
+### Delete user
+DELETE {{host}}/2?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOjEwMCwiZXhwIjoxNjUzMDE5NTYwfQ.qIOx_irFQ5LXmbBZr6Rh_VEC-XnbxwMPlJxpOHqan5E HTTP/1.1
+
+
+### Update user info
+PUT {{host}}/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOjEwMCwiZXhwIjoxNjUzMDE5NTYwfQ.qIOx_irFQ5LXmbBZr6Rh_VEC-XnbxwMPlJxpOHqan5E HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 3,
+    "username": "voldemort",
+    "password": "admin"
+}
