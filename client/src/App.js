@@ -67,7 +67,8 @@ function App() {
 
   const dogDeleteHandler = async (dog) => {
     console.log(JSON.stringify(dog))
-    const response = await axiosPrivate.delete(`/dogs/${dog}`);
+    // const response = await axiosPrivate.delete(`/dogs/${dog}`);
+    const response = await axiosPrivate.delete('/dogs/', {data: JSON.stringify(dog.id)});
     console.log(response.data);
     getDogs(url);
   }

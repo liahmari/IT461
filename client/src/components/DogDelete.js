@@ -10,7 +10,7 @@ const DogDelete = ({deleteHandler}) =>{
     const formHandler = (e) =>{
         e.preventDefault();
         if(choice)
-            deleteHandler(dog.id);
+            deleteHandler(dog);
         navigate('/dogs');
     }
     return(
