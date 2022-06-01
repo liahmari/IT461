@@ -1,9 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
 
-const DogDetail = () =>{
+const DogDetail = () => {
     const location = useLocation();
     const dog = location.state.dog;
-    return(
+    return (
         <div>
             <h1>Dog Detail</h1>
             <div>

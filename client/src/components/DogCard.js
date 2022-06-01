@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const DogCard = ({dog}) => {
     return (
@@ -6,9 +6,9 @@ const DogCard = ({dog}) => {
             <td>{dog.id}</td>
             <td>{dog.name}</td>
             <td>
-                <Link to={`/dogs/view/${dog.id}`}state={{dog}} > View </Link> |
-                <Link to={`/dogs/edit/${dog.id}`}state={{dog}}> Edit </Link> |
-                <Link to={`/dogs/delete/${dog.id}`}state={{dog}}> Delete </Link>
+                <Link to={`/dogs/view/${dog.id}`} state={{dog}}> View </Link> |
+                <Link to={`/dogs/edit/${dog.id}`} state={{dog}}> Edit </Link> |
+                <a href=""> Delete </a>
             </td>
         </tr>
     );

@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import DogCard from "./DogCard";
-const Dogs = ({dogs, getDogs}) => {
 
+const Dogs = ({dogs, getDogs}) => {
     const paginationHandler = (e) => {
         e.preventDefault();
         const name = e.target.getAttribute('data-name');
@@ -12,11 +12,11 @@ const Dogs = ({dogs, getDogs}) => {
     }
     return (
         <article>
-            <h2>Dogs List (<Link to="/dogs/create">Create</Link>) </h2>
+            <h2>Dogs List (<Link to="/dogs/create">Create</Link>)</h2>
             {dogs?.data?.length
                 ? (
                     <>
-                    <table border="1" cellpading="5" cellspacing="5">
+                    <table border="1" cellpading="5" cellSpacing="5">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -27,7 +27,7 @@ const Dogs = ({dogs, getDogs}) => {
                         <tbody>
                     {
                         dogs.data.map((dog, i) =>
-                            <DogCard dog={dog}/>
+                            <DogCard dog={dog} />
                         )
                     }
                         </tbody>
