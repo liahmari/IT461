@@ -13,9 +13,10 @@ import RequireAuth from './components/RequireAuth';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useAxiosPrivate from './hooks/useAxiosPrivate';
-import DogAdd from './components/DogAdd';
-import DogDetail from './components/DogDetail';
-import DogEdit from './components/DogEdit';
+import PetAdd from './components/PetAdd';
+import PetDetail from './components/PetDetail';
+import PetEdit from './components/PetEdit';
+import PetDelete from './components/PetDelete';
 
 const ROLES = {
   'User': 2001,
@@ -24,45 +25,77 @@ const ROLES = {
 }
 
 function App() {
-  const [dogs, setDogs] = useState([]);
-  const [url, setUrl] = useState('/dogs/?limit=3&offset=0');
+  const [dogUrl,setDogUrl] = useState('/dogs/?limit=3&offset=0')
+  const [catUrl,setCatUrl1] = useState('/cats/?limit=3&offset=0')
+  const [dogs, setDogs] = useState([])
+  const [cats, setCats] = useState([])
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const getDogs = async (url, options = null) => {
-      setUrl(url);
-      try {
-          const response = await axiosPrivate.get(url, options);
+  const getDogs = async (dogUrl, options=null) => {
+    setDogUrl(dogUrl);
+      try { 
+          const response = await axiosPrivate.get(dogUrl, options);
           console.log(response.data);
+          // return response.data
           setDogs(response.data);
       } catch (err) {
           console.error(err);
           navigate('/login', { state: { from: location }, replace: true });
       }
   }
-  useEffect(() => {
+  const getCats = async (catUrl, options=null) => {
+    setCatUrl1(catUrl);
+      try { 
+          const response = await axiosPrivate.get(catUrl, options);
+          console.log(response.data);
+          setCats(response.data);
+      } catch (err) {
+          console.error(err);
+          navigate('/login', { state: { from: location }, replace: true });
+      }
+  }
+
+    useEffect(() => {
       const controller = new AbortController();
-      getDogs(url, {
+      getDogs(dogUrl, {
           signal: controller.signal
+      });
+      getCats(catUrl, {
+        signal: controller.signal
       });
       return () => {
           controller.abort();
       }
+      
   }, []);
 
-  const dogAddHandler = async ({name}) => {
-    console.log('DOG: ', name);
-    const response = await axiosPrivate.post('/dogs/', JSON.stringify({id: 0, name}));
+  const petAddHandler = async (pet,category) =>{
+    console.log(category)
+    const link = category===2 ? "cats" : "dogs"
+    const response = await axiosPrivate.post(`/${link}/`, JSON.stringify(pet));
     console.log(response.data);
-    getDogs(url);
+    category === 2 ? getCats(catUrl) : getDogs(dogUrl)
   }
-  const dogUpdateHandler = async (dog) => {
-    console.log('DOG: ', dog);
-    const response = await axiosPrivate.put('/dogs/', JSON.stringify(dog));
+
+  const petUpdateHandler = async (pet,category) => {
+    console.log(category)
+    const link = category===2 ? "cats" : "dogs"
+    const response = await axiosPrivate.put(`/${link}/`, JSON.stringify(pet));
     console.log(response.data);
-    getDogs(url);
+    category === 2 ? getCats(catUrl) : getDogs(dogUrl)
   }
+
+  const petDeleteHandler = async (pet,category) => {
+    console.log(JSON.stringify(pet))
+    const link = category===2 ? "cats" : "dogs"
+    // const response = await axiosPrivate.delete(`/${link}/${pet.id}`);
+    const response = await axiosPrivate.delete(`/${link}/`, {data: JSON.stringify(pet.id)});
+    console.log(response.data);
+    category === 2 ? getCats(catUrl) : getDogs(dogUrl)
+  }
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -78,10 +111,17 @@ function App() {
         </Route>
 
         <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>
-          <Route path="dogs" element={<Dogs dogs={dogs} getDogs={getDogs} />} />
-          <Route path="dogs/create" element={<DogAdd addHandler={dogAddHandler} />} />
-          <Route path="dogs/view/:id" element={<DogDetail />} />
-          <Route path="dogs/edit/:id" element={<DogEdit updateHandler={dogUpdateHandler} />} />
+          <Route path="dogs" element={<Dogs dogs={dogs} getDogs={getDogs}/>} />
+          <Route path="dogs/create" element={<PetAdd addHandler={petAddHandler}/>}/>
+          <Route path="dogs/view/:id" element={<PetDetail/>}/>
+          <Route path="dogs/edit/:id" element={<PetEdit updateHandler={petUpdateHandler}/>}/>
+          <Route path="dogs/delete/:id" element={<PetDelete deleteHandler={petDeleteHandler}/>}/>
+          
+          <Route path="cats" element={<Cats cats={cats} getCats={getCats}/>}  />
+          <Route path="cats/create" element={<PetAdd addHandler={petAddHandler}/>}/>
+          <Route path="cats/view/:id" element={<PetDetail/>}/>
+          <Route path="cats/edit/:id" element={<PetEdit updateHandler={petUpdateHandler}/>}/>
+          <Route path="cats/delete/:id" element={<PetDelete deleteHandler={petDeleteHandler}/>}/>
         </Route>
 
 

@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
-import DogCard from "./DogCard";
+import { Link } from "react-router-dom";
+import PetCard from "./PetCard";
 
-const Dogs = ({dogs, getDogs}) => {
+const Dogs = ({dogs,getDogs}) =>{
     const paginationHandler = (e) => {
         e.preventDefault();
         const name = e.target.getAttribute('data-name');
@@ -12,11 +12,11 @@ const Dogs = ({dogs, getDogs}) => {
     }
     return (
         <article>
-            <h2>Dogs List (<Link to="/dogs/create">Create</Link>)</h2>
+            <h2>Dogs List (<Link to="/dogs/create" state={{category:1}}>Create</Link>)</h2>
             {dogs?.data?.length
                 ? (
                     <>
-                    <table border="1" cellpading="5" cellSpacing="5">
+                    <table border="1" cellPadding={5} cellSpacing={5}>
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -27,7 +27,9 @@ const Dogs = ({dogs, getDogs}) => {
                         <tbody>
                     {
                         dogs.data.map((dog, i) =>
-                            <DogCard dog={dog} />
+                            <tr key={dog.id}>
+                                <PetCard pet={dog} category={1}/>
+                            </tr>
                         )
                     }
                         </tbody>
@@ -54,5 +56,6 @@ const Dogs = ({dogs, getDogs}) => {
         </article>
     );
 };
+
 
 export default Dogs;
